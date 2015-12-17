@@ -36,6 +36,7 @@ if __name__ == "__main__":
         sub = json.loads(response.read())
         return float(sub["data"]["amount"])
 
+    api.update_status("Release the Bulls.")
     while True:
         pricing["first"] = get_coinbase()
         time.sleep(60 * 60) #Tweet every 60 minutes (5 for testing)
