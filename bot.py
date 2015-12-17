@@ -45,6 +45,6 @@ if __name__ == "__main__":
 
     while True:
         pricing["first"] = get_coinbase()
-        time.sleep(30) #Tweet every 60 minutes (5 for testing)
+        time.sleep(60 * 60) #Tweet every 60 minutes (5 for testing)
         pricing["second"] = get_coinbase()
         check_bullrun()
