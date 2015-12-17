@@ -10,7 +10,9 @@ import tweepy # Python Tweeting
 import locale # Currency Library
 import os
 from urllib2 import Request, urlopen, URLError
-import flask
+from flask import Flask
+
+app = Flask(__name__)
 
 port = int(os.environ.get("PORT", 33507))
 app.run(host='0.0.0.0', port=port)
