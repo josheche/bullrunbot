@@ -10,6 +10,10 @@ import tweepy # Python Tweeting
 import locale # Currency Library
 import os
 from urllib2 import Request, urlopen, URLError
+import flask
+
+port = int(os.environ.get("PORT", 33507))
+app.run(host='0.0.0.0', port=port)
 
 #enter the corresponding information from your Twitter application into Heroku:
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
@@ -38,6 +42,6 @@ if __name__ == "__main__":
 
     while True:
         pricing["first"] = get_coinbase()
-        time.sleep(60 * 60) #Tweet every 60 minutes (5 for testing)
+        time.sleep(30) #Tweet every 60 minutes (5 for testing)
         pricing["second"] = get_coinbase()
         check_bullrun()
