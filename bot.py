@@ -10,13 +10,7 @@ import tweepy # Python Tweeting
 import locale # Currency Library
 import os
 from urllib2 import Request, urlopen, URLError
-from flask import Flask
-import thread
 
-app = Flask(__name__)
-
-port = int(os.environ.get("PORT", 33507))
-thread.start_new_thread( app.run,("0.0.0.0", port, ) )
 
 #enter the corresponding information from your Twitter application into Heroku:
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
