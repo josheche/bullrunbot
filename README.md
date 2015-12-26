@@ -5,8 +5,10 @@ python twitter bot @bitcoinbullrun
 
 Deploy as a web worker. Worker. NOT A WEB APP. K.
 
-Problems? Issues? Sucks.
+Problems? Issues?
 -----------
+
+Sucks.
 
 Python
 -------------
