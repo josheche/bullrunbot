@@ -45,4 +45,4 @@ Fork it, bro.
 License
 -------
 
-MIT
+CC0
