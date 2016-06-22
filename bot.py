@@ -31,9 +31,9 @@ if __name__ == "__main__":
         diff = pricing["second"] - pricing["first"]
         percentage = str("{:2.2f}".format((diff/pricing["second"]) * 100 ))
         if diff >= 0:
-            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher since our last tweet")
+            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher since our last tweet" + "\xF0\x9F\x93\x88")
         else:
-            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower since our last tweet")
+            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower since our last tweet" + "\xF0\x9F\x93\x89")
 
     def get_coinbase():
         request = Request('https://api.coinbase.com/v2/prices/spot')
@@ -43,6 +43,6 @@ if __name__ == "__main__":
 
     while True:
         pricing["first"] = get_coinbase()
-        time.sleep(60) #Tweet every 60 minutes (5 for testing) 
+        time.sleep(60*60*6) #Tweet every 60 minutes (5 for testing) 
         pricing["second"] = get_coinbase()
         check_price_difference()
