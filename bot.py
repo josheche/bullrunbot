@@ -29,10 +29,11 @@ locale.setlocale( locale.LC_ALL, '' )
 if __name__ == "__main__":
     def check_price_difference():
         diff = pricing["second"] - pricing["first"]
+        percentage = str("{:2.2f}".format((diff/pricing["second"]) * 100 ))
         if diff >= 0:
-            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + str("{:2.2f}".format((diff/pricing["second"]) * 100 ) + "%" + " higher since our last tweet")
+            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher since our last tweet")
         else:
-            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + str("{:2.2f}".format((diff/pricing["second"]) * 100 ) + "%" + " lower since our last tweet")
+            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower since our last tweet")
 
     def get_coinbase():
         request = Request('https://api.coinbase.com/v2/prices/spot')
