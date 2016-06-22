@@ -30,20 +30,15 @@ if __name__ == "__main__":
     def check_price_difference():
         diff = pricing["second"] - pricing["first"]
         if diff >= 0:
-            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + str("{:2.2f}".format((diff/pricing["second"]) * 100 ) + "%" + " higher since our last tweet") 
-            )
+            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + str("{:2.2f}".format((diff/pricing["second"]) * 100 ) + "%" + " higher since our last tweet")
         else:
-            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + str("{:2.2f}".format((diff/pricing["second"]) * 100 ) + "%" + " lower since our last tweet") 
-            )
-
+            api.update_status("The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + str("{:2.2f}".format((diff/pricing["second"]) * 100 ) + "%" + " lower since our last tweet")
 
     def get_coinbase():
         request = Request('https://api.coinbase.com/v2/prices/spot')
         response = urlopen(request)
         sub = json.loads(response.read())
         return float(sub["data"]["amount"])
-
-
 
     while True:
         pricing["first"] = get_coinbase()
