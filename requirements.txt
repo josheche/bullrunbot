@@ -3,4 +3,9 @@ requests==2.8.1
 requests-oauthlib==0.6.0
 six==1.10.0
 tweepy==3.5.0
-pygal=2.2.3
+pygal==2.2.3
+lxml==3.6.0
+cairosvg==1.0.20
+tinycss==0.3
+cssselect==0.9.2
+pillow==3.3.0
