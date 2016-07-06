@@ -92,12 +92,12 @@ if __name__ == "__main__":
 
         #line_chart = pygal.Line(show_dots=False, style=custom_style, range=(average_price - (average_price/50), average_price + (average_price/50)),title="Bitcoin Price (Last 8 Hours)", x_title="Time", y_title="USD", margin=20, y_label_rotation=40, x_label_rotation=40, fill=True, show_legend=False, show_y_guides= False, interpolate='cubic')
         line_chart = pygal.Line(config)
-        line_chart.x_labels = map(lambda d: d.strftime('%m-%d %I:%M'), dates)
+        line_chart.x_labels = map(lambda d: d.strftime('%m-%d %I:%M UTC'), dates)
         line_chart.add("", prices)
         line_chart.render_to_png(filename='output.png')
 
         mimage = Image.open('output.png')
-        limage = Image.open('logo.jpg')
+        limage = Image.open('logo.png')
         limage = limage.resize((243, 49))
         mbox = mimage.getbbox()
         lbox = limage.getbbox()
