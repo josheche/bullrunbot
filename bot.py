@@ -43,9 +43,9 @@ if __name__ == "__main__":
         diff = pricing["second"] - pricing["first"]
         percentage = str("{:2.2f}".format((diff/pricing["second"]) * 100 ))
         if diff >= 0:
-            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher since our last tweet" + "\xF0\x9F\x93\x88")
+            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher since our last tweet")
         else:
-            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower since our last tweet" + "\xF0\x9F\x93\x89")
+            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower since our last tweet")
 
     def create_graph():
         dates = []
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         config = pygal.Config()
 
         config.style = custom_style
-        config.title = "Bitcoin Price (Last 8 Hours)"
+        config.title = "Bitcoin Price Last 8 Hours"
         config.y_title = "USD"
         config.y_label_rotation = 40
         config.x_label_rotation = 40
