@@ -120,8 +120,7 @@ if __name__ == "__main__":
         return sub["data"]["prices"]
 
     while True:
-        create_graph()
         pricing["first"] = get_coinbase()
-        time.sleep(60*60*8) #Tweet every 60 minutes (5 for testing) 
+        time.sleep(60*60*300) #Tweet every 60 minutes (5 for testing) 
         pricing["second"] = get_coinbase()
         check_price_difference()
