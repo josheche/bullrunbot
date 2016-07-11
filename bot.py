@@ -66,8 +66,8 @@ if __name__ == "__main__":
 
         average_price = average_price / price_amounts
         custom_style = Style(
-            background='transparent',
-            plot_background='transparent',
+            background='white',
+            plot_background='white',
             opacity='.9',
             opacity_hover='.9',
             colors=('#EE494A','#EE494A')
@@ -102,7 +102,7 @@ if __name__ == "__main__":
         mbox = mimage.getbbox()
         lbox = limage.getbbox()
 
-        box = (mbox[2] - lbox[2] - lbox[2] - 20, mbox[1] - lbox[1] - lbox[1] + 30)
+        box = (mbox[2] - lbox[2] - lbox[2] - 38, mbox[1] - lbox[1] - lbox[1] + 30)
         mimage.paste(limage, box)
         mimage.save('output_logo.png')
         print 'Rendered'
@@ -120,6 +120,7 @@ if __name__ == "__main__":
         return sub["data"]["prices"]
 
     while True:
+        create_graph()
         pricing["first"] = get_coinbase()
         time.sleep(60*60*8) #Tweet every 60 minutes (5 for testing) 
         pricing["second"] = get_coinbase()
