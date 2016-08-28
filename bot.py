@@ -43,9 +43,9 @@ if __name__ == "__main__":
         diff = pricing["second"] - pricing["first"]
         percentage = str("{:2.2f}".format((diff/pricing["second"]) * 100 ))
         if diff >= 0:
-            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher since our last tweet")
+            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher in the last 12 hours")
         else:
-            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower since our last tweet")
+            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower in the last 12 hours")
 
     def create_graph():
         dates = []
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         config = pygal.Config()
 
         config.style = custom_style
-        config.title = "Bitcoin Price Last 8 Hours"
+        config.title = "Bitcoin Price Last 12 Hours"
         config.y_title = "USD"
         config.y_label_rotation = 40
         config.x_label_rotation = 40
@@ -122,6 +122,6 @@ if __name__ == "__main__":
     while True:
         create_graph()
         pricing["first"] = get_coinbase()
-        time.sleep(60*60*8) #Tweet every 60 minutes (5 for testing) 
+        time.sleep(60*60*12) #Tweet every 60 minutes (5 for testing) 
         pricing["second"] = get_coinbase()
         check_price_difference()
