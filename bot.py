@@ -17,7 +17,7 @@ from urllib2 import Request, urlopen, URLError
 
 
 #enter the corresponding information from your Twitter application into Heroku:
-try: 
+try:
     CONSUMER_KEY = os.environ['CONSUMER_KEY']
     CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
     ACCESS_KEY = os.environ['ACCESS_KEY']
@@ -36,16 +36,16 @@ api = tweepy.API(auth)
 pricing = {}
 locale.setlocale( locale.LC_ALL, '' )
 
-
+hours = 12
 if __name__ == "__main__":
     def check_price_difference():
         create_graph()
         diff = pricing["second"] - pricing["first"]
         percentage = str("{:2.2f}".format((diff/pricing["second"]) * 100 ))
         if diff >= 0:
-            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher in the last 12 hours")
+            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher in the last " + hours + " hours")
         else:
-            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower in the last 12 hours")
+            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower in the last " + hours + " hours")
 
     def create_graph():
         dates = []
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         for item in data:
             dates.insert(0, datetime.strptime(item["time"],'%Y-%m-%dT%H:%M:%SZ'))
             prices.insert(0, float(item["price"]))
-            
+
             average_price += float(item["price"])
             price_amounts += 1
 
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         config = pygal.Config()
 
         config.style = custom_style
-        config.title = "Bitcoin Price Last 12 Hours"
+        config.title = "Bitcoin Price Last " + hours + " Hours"
         config.y_title = "USD"
         config.y_label_rotation = 40
         config.x_label_rotation = 40
@@ -114,14 +114,14 @@ if __name__ == "__main__":
         return float(sub["data"]["amount"])
 
     def get_coinbase_historical():
-        request = Request('https://api.coinbase.com/v2/prices/historic?hours=8')
+        request = Request('https://api.coinbase.com/v2/prices/historic?hours='+hours)
         response = urlopen(request)
         sub = json.loads(response.read())
         return sub["data"]["prices"]
 
     while True:
         create_graph()
-        pricing["first"] = get_coinbase()
-        time.sleep(60*60*12) #Tweet every 60 minutes (5 for testing) 
-        pricing["second"] = get_coinbase()
+        prices = get_coinbase_historical()
+        pricing["first"] = float(prices[hours-1]["price"])
+        pricing["second"] = float(get_coinbase())
         check_price_difference()
