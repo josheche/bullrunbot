@@ -43,9 +43,9 @@ if __name__ == "__main__":
         diff = pricing["second"] - pricing["first"]
         percentage = str("{:2.2f}".format((diff/pricing["second"]) * 100 ))
         if diff >= 0:
-            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher in the last " + hours + " hours")
+            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " + percentage + "%" + " higher in the last " + str(hours) + " hours")
         else:
-            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower in the last " + hours + " hours")
+            api.update_with_media("output_logo.png","The current #bitcoin price is : " + locale.currency(pricing["second"]) + " that is " +  percentage + "%" + " lower in the last " + str(hours) + " hours")
 
     def create_graph():
         dates = []
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         config = pygal.Config()
 
         config.style = custom_style
-        config.title = "Bitcoin Price Last " + hours + " Hours"
+        config.title = "Bitcoin Price Last " + str(hours) + " Hours"
         config.y_title = "USD"
         config.y_label_rotation = 40
         config.x_label_rotation = 40
@@ -105,7 +105,6 @@ if __name__ == "__main__":
         box = (mbox[2] - lbox[2] - lbox[2] - 38, mbox[1] - lbox[1] - lbox[1] + 30)
         mimage.paste(limage, box)
         mimage.save('output_logo.png')
-        print 'Rendered'
 
     def get_coinbase():
         request = Request('https://api.coinbase.com/v2/prices/spot')
@@ -114,14 +113,12 @@ if __name__ == "__main__":
         return float(sub["data"]["amount"])
 
     def get_coinbase_historical():
-        request = Request('https://api.coinbase.com/v2/prices/historic?hours='+hours)
+        request = Request('https://api.coinbase.com/v2/prices/historic?hours='+str(hours))
         response = urlopen(request)
         sub = json.loads(response.read())
         return sub["data"]["prices"]
 
-    while True:
-        create_graph()
-        prices = get_coinbase_historical()
-        pricing["first"] = float(prices[hours-1]["price"])
-        pricing["second"] = float(get_coinbase())
-        check_price_difference()
+    prices = get_coinbase_historical()
+    pricing["first"] = float(prices[hours-1]["price"])
+    pricing["second"] = float(get_coinbase())
+    check_price_difference()
