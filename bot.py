@@ -51,20 +51,13 @@ if __name__ == "__main__":
         dates = []
         prices = []
 
-        average_price = 0
-        price_amounts = 0
-
         data = get_coinbase_historical()
 
         for item in data:
             dates.insert(0, datetime.strptime(item["time"],'%Y-%m-%dT%H:%M:%SZ'))
             prices.insert(0, float(item["price"]))
 
-            average_price += float(item["price"])
-            price_amounts += 1
 
-
-        average_price = average_price / price_amounts
         custom_style = Style(
             background='white',
             plot_background='white',
@@ -82,7 +75,7 @@ if __name__ == "__main__":
         config.x_label_rotation = 40
         config.show_dots = False
         config.style = custom_style
-        config.range = (average_price - (average_price/50), average_price + (average_price/50))
+        config.range = min(prices), max(prices)
         config.margin = 20
         config.fill = True
         config.show_legend=False
