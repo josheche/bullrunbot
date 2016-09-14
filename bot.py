@@ -66,8 +66,11 @@ if __name__ == "__main__":
             colors=('#EE494A','#EE494A')
         )
 
-        config = pygal.Config()
+        offset = 0.2
+        lowest  = min(prices) * (1 - offset)
+        highest = max(prices) * (1 + offset)
 
+        config = pygal.Config()
         config.style = custom_style
         config.title = "Bitcoin Price Last " + str(hours) + " Hours"
         config.y_title = "USD"
@@ -75,7 +78,7 @@ if __name__ == "__main__":
         config.x_label_rotation = 40
         config.show_dots = False
         config.style = custom_style
-        config.range = min(prices), max(prices)
+        config.range = lowest, highest
         config.margin = 20
         config.fill = True
         config.show_legend=False
@@ -83,7 +86,6 @@ if __name__ == "__main__":
         config.show_x_labels=False
         config.interpolate='cubic'
 
-        #line_chart = pygal.Line(show_dots=False, style=custom_style, range=(average_price - (average_price/50), average_price + (average_price/50)),title="Bitcoin Price (Last 8 Hours)", x_title="Time", y_title="USD", margin=20, y_label_rotation=40, x_label_rotation=40, fill=True, show_legend=False, show_y_guides= False, interpolate='cubic')
         line_chart = pygal.Line(config)
         line_chart.x_labels = map(lambda d: d.strftime('%m-%d %I:%M UTC'), dates)
         line_chart.add("", prices)
